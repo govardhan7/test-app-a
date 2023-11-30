@@ -1,0 +1,143 @@
+.product-card {
+  display: flex;
+  padding: 20px 16px 20px;
+  margin: 4px;
+  justify-content: center;
+  width: 180px;
+  height: auto;
+  border-bottom-style: dashed;
+  border-bottom-width: thin;
+}
+
+.product-card__explore-button-mob-btn {
+  display: none;
+}
+
+.product-card__image img {
+  height: 124px;
+  width: 140px;
+  flex: 1;
+}
+
+.product-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.product-card__heading {
+  font-weight: 500;
+  font-size: 16px;
+  height: 37px;
+  width: 100%;
+  margin-bottom: 25px;
+  overflow: hidden;
+  clip: 2;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.product-card__description {
+  font-size: 14px;
+  height: 101px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  clip: 2;
+  background: #e3e7e9f2;
+  padding: 8px;
+  margin: 20px 0 20px;
+  opacity: 0.8;
+}
+
+.product-card__explore-button,
+.product-card__explore-button-mob-btn {
+  background-color: #e60965;
+  color: white;
+  cursor: pointer;
+  height: 34px;
+  outline: none;
+  border: none;
+  padding: 0 10px;
+}
+
+.product-card__explore-button:hover {
+  background-color: rgb(116, 24, 24);
+}
+
+.product-card__price-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
+}
+
+.product-card__price {
+  flex: 1 !important;
+  font-size: 14px;
+}
+.product-card__explore-button:focus {
+  outline: 2px solid black; /* Choose your desired outline color */
+}
+
+@media (max-width: 400px) {
+  .product-card {
+    width: 270px;
+  }
+
+  .product-card__content {
+    display: grid;
+    gap: 10px;
+  }
+
+  .product-card__heading {
+    grid-column: 1 / 5;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .product-card__explore-button-mob-btn {
+    display: block;
+    width: 100%;
+  }
+
+  .product-card__explore-button,
+  .product-card__price {
+    display: none;
+  }
+
+  .product-card__explore-button-mob-btn:focus {
+    outline: 2px solid #e60965; /* Choose your desired outline color */
+  }
+
+  .product-card__image {
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+
+    & img {
+      height: 114px;
+      width: 97px;
+    }
+  }
+
+  .product-card__description {
+    grid-row: 2 / 3;
+    grid-column: 4 / 5;
+    margin: 0;
+  }
+
+  .product-card__price-card {
+    grid-column: 4 / 5;
+    grid-row: 3 / 4;
+  }
+
+  .product-card__image img {
+    max-width: 100%;
+  }
+}

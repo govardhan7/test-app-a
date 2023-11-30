@@ -1,0 +1,180 @@
+.Cart {
+  height: 85vh;
+  width: 30%;
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  top: 100px;
+  background-color: #e3e7e9f2;
+  z-index: 11;
+  margin-right: 80px;
+  height: calc(100vh - 100px);
+  overflow: auto;
+  font-size: 14px;
+}
+
+.cartheading {
+  background-color: black;
+  color: white;
+  width: auto;
+  padding: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartItem {
+  background-color: white;
+  display: flex;
+  margin: 10px 0 0 0;
+  padding: 10px;
+  height: 70px;
+}
+
+.cardProductname {
+  padding: 0 10px;
+  opacity: 0.7;
+  margin: 5px 0;
+}
+
+.cartProductImage {
+  width: 5rem;
+  height: 4rem;
+}
+
+.cartList {
+  padding: 0 10px;
+  height: calc(100% - 134px);
+  overflow: auto;
+}
+.start-shop {
+  margin-top: 17px;
+}
+
+.cartAction {
+  margin: 10px;
+  background-color: #d62a63;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  width: 20px;
+  justify-content: center;
+}
+
+.cartProductname {
+  font-weight: bold;
+  font-size: large;
+}
+
+.cartProductprice {
+  margin: auto;
+  margin-right: 2px;
+  opacity: 0.7;
+}
+
+.cartContainer {
+  flex: 3;
+}
+
+.checkout p {
+  margin: 2px 0 0 0;
+}
+
+.checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-button {
+  cursor: pointer;
+}
+
+.no-items-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.no-item-heading {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.no-item-suggestion {
+  font-size: 12px;
+}
+
+.cart-close {
+  cursor: pointer;
+}
+
+.start-shopping {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.checkout-button {
+  background: #e60965;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 96%;
+  border: none;
+  padding: 10px;
+  margin: 2%;
+}
+
+@media (max-width: 769px) {
+  .Cart {
+    height: calc(100vh - 70px);
+  }
+
+}
+
+@media (max-width: 800px) {
+  .Cart {
+    margin: 0;
+    top: 70px;
+    width: 100%;
+    right: 0;
+    left: 0;
+  }
+
+  .cartheading {
+    background: white;
+    color: black;
+  }
+
+  .cartheading {
+    position: relative;
+    padding: 20px;
+  }
+
+  .cartheading::before,
+  .cartheading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #e3e7e9f2;
+  }
+
+  .cartheading::before {
+    top: 0;
+  }
+
+  .cartheading::after {
+    bottom: 0;
+  }
+
+  .cart-close {
+    display: none;
+  }
+}
