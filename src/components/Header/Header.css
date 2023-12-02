@@ -27,6 +27,7 @@
   color: #d62a63;
   padding-bottom: 5px;
   margin-bottom: 0;
+  opacity: 1;
 }
 
 .section {
@@ -81,10 +82,10 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  height: 23px;
+  min-height: 23px;
   padding: 2px 7px;
-  margin: 5px 0 10px 10px;
-  opacity: 0.7;
+  margin: 5px 0 7px 10px;
+  opacity: 0.9;
 }
 
 .sign-out:hover {
@@ -99,7 +100,7 @@
   opacity: 0.7;
   color: #333;
   margin-right: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .cart {

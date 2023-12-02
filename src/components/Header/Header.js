@@ -4,6 +4,7 @@ import "./Header.css";
 import { Link, NavLink } from "react-router-dom";
 import Cart from "../Cart/Cart";
 import { storeUserData, resetUserData } from "../../store/actions/UserActions";
+import { toast } from "react-toastify";
 
 
 const selectUserData = (state) => {
@@ -48,6 +49,12 @@ const Header = () => {
   const handleSignOut =()=>{
     const updatedUserData = userData.map(user => ({ ...user, isActive: false }));
     dispatch(storeUserData(updatedUserData));
+    toast.success("Signed Out!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeButton: false,
+    });
 
   }
 

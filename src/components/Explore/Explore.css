@@ -33,6 +33,7 @@
     color: white;
     padding: 12px;
     border: none;
+    cursor: pointer;
   }
   @media (min-width: 768px) {
     .category {

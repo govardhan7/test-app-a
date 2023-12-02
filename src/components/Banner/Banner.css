@@ -1,38 +1,47 @@
 .bannerContainer {
   margin: 0 100px;
   margin-top: 100px;
-  .carousel {
-    .control-arrow {
-        z-index: 1;
-    }
-    .control-prev.control-arrow:before {
-      border-right: 8px solid black;
-    }
-    .control-next.control-arrow:before {
-        border-left: 8px solid black;
-    }
-    &.carousel-slider .control-arrow:hover {
-        background: none;
-      }
-    & img {
-        height: 307px !important;
-      }
-      @media only screen and (max-width: 400px) {
-        & img {
-            height: 140px !important;
-        }
-      }
-      @media only screen and (min-width: 401px) and (max-width: 700px) {
-        & img {
-            height: 170px !important;
-        }
-      }
-  }
+}
 
-  @media (max-width: 768px) {
+.bannerContainer .carousel {
+  cursor: pointer;
+}
+
+.bannerContainer .carousel .control-arrow {
+  z-index: 1;
+}
+
+.bannerContainer .carousel .control-prev.control-arrow:before {
+  border-right: 8px solid black;
+}
+
+.bannerContainer .carousel .control-next.control-arrow:before {
+  border-left: 8px solid black;
+}
+
+.bannerContainer .carousel.carousel-slider .control-arrow:hover {
+  background: none;
+}
+
+.bannerContainer .carousel img {
+  height: 307px !important;
+}
+
+@media only screen and (max-width: 400px) {
+  .bannerContainer .carousel img {
+    height: 140px !important;
+  }
+}
+
+@media only screen and (min-width: 401px) and (max-width: 700px) {
+  .bannerContainer .carousel img {
+    height: 170px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .bannerContainer {
     margin: 0;
     margin-top: 70px;
+  }
 }
-
-}
-

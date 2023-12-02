@@ -10,24 +10,24 @@ const ProductCard = ({ item }) => {
   const dispatch = useDispatch();
   const usersData = useSelector((state) => state.user.userData);
   const isLoggedIn = usersData?.some(user => user.isActive === true);
-  
+
   const handleCartButton = () => {
-    if(isLoggedIn) {
-    dispatch(addToUserCart(item));
-    toast.success("Added to Cart!", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeButton: false,
-    });
-  }else {
-    toast.info("Please Login!", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeButton: false,
-    });
-  }
+    if (isLoggedIn) {
+      dispatch(addToUserCart(item));
+      toast.success("Added to Cart!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeButton: false,
+      });
+    } else {
+      toast.info("Please Login!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeButton: false,
+      });
+    }
   };
 
   return (
@@ -41,22 +41,23 @@ const ProductCard = ({ item }) => {
         <div className="product-card__price-card">
           <p className="product-card__price">{`MRP Rs.${item.price}`}</p>
           <button
-            className="product-card__explore-button"
+            className={`product-card__explore-button ${item.itemExist ? 'already-exist' : ''}`}
             onClick={handleCartButton}
             aria-label={`Add ${item.title} to Cart`}
             tabIndex="0"
             data-testid={`buy-now-button-${item.id}`}
           >
-            Buy Now
+            {item.itemExist ? <span>Add Again!</span>:<span>Buy Now</span>  }
           </button>
           <button
-            className="product-card__explore-button-mob-btn"
+            className={`product-card__explore-button-mob-btn ${item.itemExist ? 'already-exist' : ''}`}
             onClick={handleCartButton}
             aria-label={`Add ${item.title} to Cart at Rs.${item.price}`}
             tabIndex="0"
             data-testid={`buy-now-button-mob-${item.id}`}
           >
-            Buy Now {`@ Rs.${item.price}`}
+             {item.itemExist ? <span>Add Again!</span>:<span>Buy Now {`@ Rs.${item.price}`}</span>  }
+            
           </button>
         </div>
       </div>

@@ -1,9 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
+import { useSelector } from "react-redux";
 import ProductCard from "../ProductCard/ProductCard";
 import "./Products.css";
+const selectUserData = (state) => {
+  const userData = state.user.userData;
 
+  if (!Array.isArray(userData)) {
+    return {
+      activeUser: null,
+      cartLength: 0,
+    };
+  }
+
+  const activeUserIndex = userData.findIndex(user => user.isActive);
+
+  const activeUser = activeUserIndex !== -1 ? userData[activeUserIndex] : null;
+
+  const cartLength = activeUser ? activeUser.cart.length : 0;
+
+  return {
+    activeUser,
+    cartLength,
+    userData,
+  };
+};
 const Products = () => {
+  const { activeUser, cartLength, userData } = useSelector(selectUserData);
   const [productsData, setProductsData] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
@@ -11,7 +34,8 @@ const Products = () => {
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [loading, setLoading] = useState(true); // New loading state
-
+  const activeUserCart = activeUser?.cart;
+  console.log(activeUserCart);
   const handleButtonClick = () => {
     setDropdownVisible(!isDropdownVisible);
   };
@@ -28,6 +52,14 @@ const Products = () => {
         .filter((item) => categoryId === item.category)
       : productsData
     : [];
+
+  filteredProducts.forEach(filteredProduct => {
+    const matchingCartItem = activeUserCart?.find(cartItem => cartItem.id === filteredProduct.id);
+
+    filteredProduct.itemExist = !!matchingCartItem;
+  });
+
+  console.log(filteredProducts);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -56,7 +88,7 @@ const Products = () => {
   return (
     <>
       <div className="product-page">
-      <div className="side-nav">
+        <div className="side-nav">
           <div>
             <button
               className="category-button"

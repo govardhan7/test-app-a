@@ -6,6 +6,8 @@ import {
   removeFromUserCart,
   removeAllItemsFromCart,
 } from "../../store/actions/UserActions";
+import { toast } from "react-toastify";
+
 import "./Cart.css";
 const selectUserData = (state) => {
   const userData = state.user.userData;
@@ -49,6 +51,12 @@ const Cart = ({ handleCloseCart }) => {
   const handleCart = () => {
     if (cartItems?.length > 0) {
       handleCloseCart(false);
+      toast.success("Order Placed!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeButton: false,
+      });
     } else {
       navigate("/");
       handleCloseCart(false);
