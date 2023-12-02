@@ -12,6 +12,7 @@ describe("Register component", () => {
       </BrowserRouter>
     );
   });
+  global.scrollTo = jest.fn();
 
   it("renders input elements", () => {
     const firstNameInput = screen.getByLabelText("First Name");
@@ -43,7 +44,6 @@ describe("Register component", () => {
 
     fireEvent.click(registerButton);
 
-    // Wait for the appearance of the success message
     const successMessage = await screen.findByText(
       "User successfully Registered. Now SignIn"
     );

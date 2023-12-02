@@ -20,6 +20,7 @@ describe("Banner Component", () => {
     expect(carouselItems.length).toBe(1);
   });
 
+  
   test("simulates click on carousel item", async () => {
     const { getByAltText, container } = render(<Banner />);
     const carouselItem = getByAltText(/2-independence day deal/i);

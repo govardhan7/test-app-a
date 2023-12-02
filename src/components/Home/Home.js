@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Banner from "../Banner/Banner";
 import Explore from "../Explore/Explore";
+import './Home.css'
 
 
 const Home = () => {

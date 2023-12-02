@@ -13,7 +13,8 @@ const ProductCard = ({ item }) => {
 
   const handleCartButton = () => {
     if (isLoggedIn) {
-      dispatch(addToUserCart(item));
+      // Ensure you dispatch the correct action creator and payload
+      dispatch(addToUserCart({ ...item, itemExist: true }));
       toast.success("Added to Cart!", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
@@ -29,6 +30,25 @@ const ProductCard = ({ item }) => {
       });
     }
   };
+  
+  // const handleCartButton = () => {
+  //   if (isLoggedIn) {
+  //     dispatch(addToUserCart(item));
+  //     toast.success("Added to Cart!", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //       autoClose: 2000,
+  //       hideProgressBar: true,
+  //       closeButton: false,
+  //     });
+  //   } else {
+  //     toast.info("Please Login!", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //       autoClose: 2000,
+  //       hideProgressBar: true,
+  //       closeButton: false,
+  //     });
+  //   }
+  // };
 
   return (
     <div key={item.id} className="product-card" role="article">

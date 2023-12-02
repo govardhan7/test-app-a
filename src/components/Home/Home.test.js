@@ -3,17 +3,18 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Home from "./Home";
 
-// Mock the Banner component
 jest.mock("../Banner/Banner", () => () => <div className="mocked-banner" />);
 
-// Mock the Explore component
 jest.mock("../Explore/Explore", () => ({ category, left }) => (
   <div className="mocked-explore" key={category.id}>
-    {/* Include any necessary content for testing purposes */}
     <span className="category-title">{category.title}</span>
     <span className="left-value">{left}</span>
   </div>
 ));
+
+
+global.scrollTo = jest.fn();
+
 
 describe("Home Component", () => {
     test("renders Home component with Banner and Explore components", async () => {
@@ -32,7 +33,6 @@ describe("Home Component", () => {
       
 
   test("fetches and renders category data", async () => {
-    // Mocking the fetch function
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ products: [{ id: 1, title: "Test Category" }] }),
@@ -45,15 +45,12 @@ describe("Home Component", () => {
       </MemoryRouter>
     );
 
-    // Wait for the fetch to resolve and update the component
     await waitFor(() => {
       const testCategoryElement = screen.getByText(/Test Category/i);
       expect(testCategoryElement).toBeInTheDocument();
     });
 
-    // Clean up the mock
     global.fetch.mockClear();
   });
 
-  // Add more test cases as needed based on your component's behavior
 });

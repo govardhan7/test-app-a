@@ -1,16 +1,15 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRouter
+import { BrowserRouter as Router } from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import Cart from "./Cart";
 import {
-  addItem,
-  removeItem,
-  removeAllItems,
-} from "../../store/actions/CartActions";
+  addToUserCart,
+  removeFromUserCart,
+  removeAllItemsFromCart,
+} from "../../store/actions/UserActions";
 
-// Mock the useDispatch and useNavigate hooks
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useDispatch: jest.fn(),
@@ -21,41 +20,32 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => jest.fn(),
 }));
 
-// Create a mock store
 const mockStore = configureMockStore();
 
 describe("Cart Component", () => {
-  // Mock data for cart items
   const mockCartItems = [
     {
-      id: 2,
-      title: "iPhone X",
-      price: 899,
-      images: [
-        "https://i.dummyjson.com/data/products/2/1.jpg",
-        "https://i.dummyjson.com/data/products/2/2.jpg",
-        "https://i.dummyjson.com/data/products/2/3.jpg",
-        "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
-      ],
+      id: 1,
+      title: "Product A",
+      price: 50,
+      images: ["image-url"],
       quantity: 2,
     },
     {
-      id: 3,
-      title: "Samsung Universe 9",
-      price: 1249,
-      images: ["https://i.dummyjson.com/data/products/3/1.jpg"],
+      id: 2,
+      title: "Product B",
+      price: 30,
+      images: ["image-url"],
       quantity: 1,
     },
   ];
 
-  // Test case for rendering with mock data
   test("renders Cart component with mock data", () => {
-    // Mock the useSelector hook
-    jest
-      .spyOn(require("react-redux"), "useSelector")
-      .mockImplementation((selector) => selector({ cart: { cartItems: mockCartItems } }));
+    jest.spyOn(require("react-redux"), "useSelector").mockImplementation((selector) =>
+      selector({ user: { userData: [{ isActive: true, cart: mockCartItems }] } })
+    );
 
-    const store = mockStore({ cart: { cartItems: mockCartItems } });
+    const store = mockStore({ user: { userData: [{ isActive: true, cart: mockCartItems }] } });
 
     const { getByText, getAllByAltText } = render(
       <Provider store={store}>
@@ -65,13 +55,83 @@ describe("Cart Component", () => {
       </Provider>
     );
 
-    // Assertions based on your mock data
-    expect(getByText(/iphone x/i)).toBeInTheDocument();
-    expect(getAllByAltText(/iphone x/i).length).toBe(1); 
-    expect(getByText(/samsung universe 9/i)).toBeInTheDocument();
-    expect(getAllByAltText(/samsung universe 9/i).length).toBe(1); 
-
+    expect(getByText(/Product A/i)).toBeInTheDocument();
+    expect(getAllByAltText(/Product A/i).length).toBe(1);
+    expect(getByText(/Product B/i)).toBeInTheDocument();
+    expect(getAllByAltText(/Product B/i).length).toBe(1);
   });
 
-  // Add more test cases for actions like adding, removing items, and checking the total
+  test("handles remove from cart action", () => {
+    const dispatchMock = jest.fn();
+    jest.spyOn(require("react-redux"), "useDispatch").mockReturnValue(dispatchMock);
+
+    jest.spyOn(require("react-redux"), "useSelector").mockImplementation((selector) =>
+      selector({ user: { userData: [{ isActive: true, cart: mockCartItems }] } })
+    );
+
+    const store = mockStore({ user: { userData: [{ isActive: true, cart: mockCartItems }] } });
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Router>
+          <Cart handleCloseCart={() => {}} />
+        </Router>
+      </Provider>
+    );
+
+    const removeButton = getByText(/-+/i);
+    fireEvent.click(removeButton);
+
+    expect(dispatchMock).toHaveBeenCalledWith(removeFromUserCart(mockCartItems[0]));
+  });
+
+  test("handles add to cart action", () => {
+    const dispatchMock = jest.fn();
+    jest.spyOn(require("react-redux"), "useDispatch").mockReturnValue(dispatchMock);
+
+    jest.spyOn(require("react-redux"), "useSelector").mockImplementation((selector) =>
+      selector({ user: { userData: [{ isActive: true, cart: mockCartItems }] } })
+    );
+
+    const store = mockStore({ user: { userData: [{ isActive: true, cart: mockCartItems }] } });
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Router>
+          <Cart handleCloseCart={() => {}} />
+        </Router>
+      </Provider>
+    );
+
+    const addButton = getByText(/\+/i);
+    fireEvent.click(addButton);
+
+    expect(dispatchMock).toHaveBeenCalledWith(addToUserCart(mockCartItems[0]));
+  });
+
+  test("handles proceed to checkout action", async () => {
+    const dispatchMock = jest.fn();
+    jest.spyOn(require("react-redux"), "useDispatch").mockReturnValue(dispatchMock);
+
+    jest.spyOn(require("react-redux"), "useSelector").mockImplementation((selector) =>
+      selector({ user: { userData: [{ isActive: true, cart: mockCartItems }] } })
+    );
+
+    const store = mockStore({ user: { userData: [{ isActive: true, cart: mockCartItems }] } });
+
+    const { getByText } = render(
+      <Provider store={store}>
+        <Router>
+          <Cart handleCloseCart={() => {}} />
+        </Router>
+      </Provider>
+    );
+
+    const checkoutButton = getByText(/Proceed to Checkout/i);
+    fireEvent.click(checkoutButton);
+
+    await waitFor(() => {
+      expect(dispatchMock).toHaveBeenCalledWith(removeAllItemsFromCart());
+    });
+  });
 });

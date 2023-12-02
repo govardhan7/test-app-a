@@ -6,10 +6,9 @@ describe("Footer Component", () => {
   test("renders copyright text", () => {
     render(<Footer />);
     
-    // Assertions
     const copyrightText = screen.getByText(/Copyright © Sabka Bazaar Pvt Ltd/i);
     expect(copyrightText).toBeInTheDocument();
   });
 
-  // You can add more test cases if needed
+
 });
