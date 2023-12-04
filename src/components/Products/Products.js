@@ -91,7 +91,7 @@ const Products = () => {
         <div className="side-nav">
           <div>
             <button
-              className="category-button"
+              className={`category-button ${categoryId === null ? "active" : ""}`}
               onClick={() => setCategoryId(null)}
               aria-label="Show All Products"
             >
